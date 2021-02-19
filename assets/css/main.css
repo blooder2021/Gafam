@@ -136,7 +136,7 @@ code, kbd, pre, samp {
 }
 
 button, input, optgroup, select, textarea {
-    color: inherit;
+    color: black;
     font: inherit;
     margin: 0
 }
@@ -152,6 +152,7 @@ button, select {
 button, html input[type="button"], input[type="reset"], input[type="submit"] {
     -webkit-appearance: button;
     cursor: pointer
+    
 }
 
 button[disabled], html input[disabled] {
